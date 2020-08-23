@@ -16,7 +16,7 @@
 2. サンプルのフォルダに`cd`する
 
     ```
-    cd PATH/TO/HttpClient
+    cd PATH/TO/http_client
     ```
 
 <br>
@@ -26,7 +26,7 @@
     ```
     python -m venv .venv
     source .venv/bin/activate
-    >> (.venv) ~/PATH/TO/HttpClient
+    >> (.venv) ~/PATH/TO/http_client
     ```
 
 <br>
@@ -47,11 +47,11 @@
 
 <br>
 
-6. 仮想環境から抜けるときは以下のコマンド
+6. 仮想環境から抜けるときは以下のコマンドを実行する
 
     ```
     deactivate
-    >> ~/PATH/TO/HttpClient
+    >> ~/PATH/TO/http_client
     ```
 
 <br>
