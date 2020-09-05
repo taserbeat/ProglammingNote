@@ -337,7 +337,7 @@ export default config;
 ```json
 {
     "description": "",
-    "main": "webpack.config.js",
+    "main": "webpack.config.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "webpack  --mode=production",
