@@ -236,9 +236,137 @@ npx webpack --mode=development
 ```
 
 
+## webpack.config.jsをTypeScriptに移行
+
+8. `ts-node`をインストールする
+
+```bash
+npm install --save-dev ts-node
+```
+
+
+9. `webpack.config.js`を`webpack.config.ts`に名前変更し、修正する
+
+`webpack.config.ts`
+
+```TypeScript
+import * as path from "path";
+import * as webpack from "webpack";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import OptimizeCSSAssetsPlugin from "optimize-css-assets-webpack-plugin";
+
+const config: webpack.ConfigurationFactory = (env, argv) => {
+    const isDevelopmentMode = argv.mode === "development";
+
+    return {
+        mode: "development",
+        entry: ["react-hot-loader/patch", path.resolve(__dirname, "./src/index.tsx")],
+        output: {
+            path: path.resolve(__dirname, "dist/"),
+            filename: "bundle.js"
+        },
+        devtool: "source-map",
+        resolve: {
+            modules: ["node_modules"],
+            alias: {
+                "react-dom": "@hot-loader/react-dom"
+            },
+            extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.(j|t)s(x)?$/,
+                    exclude: /node_modules/,
+                    use: {
+                        loader: "ts-loader",
+                    }
+                },
+                {
+                    enforce: "pre",
+                    test: /\.ts(x?)$/,
+                    loader: "source-map-loader"
+                },
+                {
+                    test: /\.css$/,
+                    use: [
+                        {
+                            loader: MiniCssExtractPlugin.loader,
+                            options: {
+                                hmr: isDevelopmentMode,
+                                reloadAll: true,
+                            }
+                        },
+                        {
+                            loader: "css-loader",
+                        }
+                    ],
+                }
+            ]
+        },
+        devServer: {
+            host: "localhost",
+            contentBase: path.resolve(__dirname, "dist/"),
+            port: 8080,
+            inline: true,
+            open: true,
+            hot: true,
+        },
+        optimization: {
+            minimizer: [new OptimizeCSSAssetsPlugin({})]
+        },
+        plugins: [
+            new ForkTsCheckerWebpackPlugin(),
+            new webpack.NamedModulesPlugin(),
+            new HtmlWebpackPlugin({ template: "./src/index.html" }),
+            new MiniCssExtractPlugin({ filename: "./css/style.css" }),
+        ]
+    };
+}
+
+export default config;
+```
+
+
+10. `package.json`の`main`を修正する
+
+`package.json` (一部抜粋)
+
+```json
+{
+    "description": "",
+    "main": "webpack.config.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack  --mode=production",
+        "start": "webpack-dev-server --hot --mode=development"
+    },
+}
+```
+
+
+11. 開発用サーバーの起動やビルドが同様に行えることを確認する
+
+- 開発用サーバーを起動
+
+    ```bash
+    npm start
+    ```
+
+- ビルド
+
+    ```bash
+    npm run build
+    ```
+
+
+
 ## 参考
 https://qiita.com/humi/items/49a7472e9a10558ea5c0  
 https://qiita.com/humi/items/72485614151fe564dceb  
 https://qiita.com/SoraKumo/items/5d92b15d06778458f5e1  
 https://numb86-tech.hatenablog.com/entry/2018/10/24/221130  
 https://webpack.js.org/plugins/mini-css-extract-plugin/  
+https://qiita.com/sathoshi-metal/items/b9ce118cca9b75b2e0a9  
