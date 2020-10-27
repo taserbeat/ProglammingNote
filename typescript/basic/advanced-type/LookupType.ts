@@ -34,3 +34,40 @@ type APIResponse = {
 
 type FriendList = APIResponse['user']['friendList']
 type Friend = FriendList['friends'][number]
+
+
+
+/*
+keyof演算子
+
+keyof演算子を使うと、オブジェクトのすべてのキーを文字列リテラル型の合併として取得できる。
+
+*/
+
+type ResponseKeys = keyof APIResponse                          // "user"型
+type UserKeys = keyof APIResponse['user']                      // "userId" | "friendList"型
+type FriendListKeys = keyof APIResponse['user']['friendList']  // "count" | "friends"型
+
+
+/*
+ルックアップ型とkeyofを組み合わせることで型安全なゲッター関数を実装することができる。
+
+*/
+
+
+// ジェネリック型の引数keyにobjのkeyofを型アノテートすることで、入力されたすべてのオブジェクトのキーの合併型(文字列リテラル)を取得する。
+// 戻り値のアノテートにルックアップ型を使うことで型安全になる。
+function get<O extends object, K extends keyof O>(obj: O, key: K): O[K] {
+    return obj[key];
+}
+
+const user = {
+    id: 0,
+    name: 'alice',
+    age: 23,
+}
+
+const userName = get(user, 'name')  // string型
+console.log(userName)               // alice
+
+// const gender = get(user, 'gender')  // エラー
