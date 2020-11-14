@@ -1,5 +1,9 @@
 # Rust
 
+[日本語公式サイト](https://www.rust-lang.org/ja)
+
+# インストール
+
 https://rustup.rs/
 
 ターミナルで上記サイトのコマンドを実行する。  
