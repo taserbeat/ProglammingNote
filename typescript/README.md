@@ -1,17 +1,17 @@
 # TypeScript
-node、npmがインストール済みとする。  
+node、yarnがインストール済みとする。  
 執筆時点の筆者のバージョンは以下の通り。  
 
 ```
 node -v
 >> v12.16.1
 
-npm -v
->>6.14.8
+yarn -v
+>> 1.22.4
 ```
 
 # プロジェクト構築
-[ここ](https://qiita.com/notakaos/items/3bbd2293e2ff286d9f49)を参考にプロジェクトを構築していく。  
+[ここ](https://qiita.com/senou/items/d939601e32c0005ebfe3)を参考にプロジェクトを構築していく。  
 
 1. 任意のフォルダ(プロジェクトのフォルダ)で`git init`する
 
@@ -26,33 +26,34 @@ npm -v
 3. package.jsonを生成し、必要に応じて書き換える。
 
     ```
-    npm init -y
+    yarn init -y
     ```
 
 
 4. TSC、Node.jsの型宣言をインストール
 
     ```
-    npm install --save_dev typescript @types/node
+    yarn add --dev typescript @types/node
     ```
 
 
 5. typescriptパッケージのバージョンを確認する
 
     ```
-    npx tsc --version
-    >> Version 4.0.2
+    yarn tsc --version
+    >> Version 4.1.3
     ```
 
 
 6. tsconfig.jsonの生成
 
     ```bash
-    npx tsc --init
+    yarn tsc --init
     ```
 
 
-7. プロジェクトに合わせてtsconfig.jsonを修正 (helloworld/tsconfig.jsonを参考)
+7. プロジェクトに合わせてtsconfig.jsonを修正 
+[helloworld/tsconfig.json](./helloworld/tsconfig.json)を参考
 
 
 8. `src/index.ts`を作成し、確認用のコードを書く
@@ -66,10 +67,10 @@ npm -v
     ```
 
 
-9. `npx tsc`を実行すると、TypeScriptからJavaScriptの変換が行われ、distフォルダに出力される
+9. `yarn tsc`を実行すると、TypeScriptからJavaScriptの変換が行われ、distフォルダに出力される
 
     ```
-    npx tsc
+    yarn tsc
     ls dist
     >> index.js    index.js.map
     ```
@@ -85,13 +86,13 @@ npm -v
 11. 開発効率を上げる (`ts-node`の導入)
 
     ```
-    npm install --save_dev ts-node
+    yarn add --dev ts-node
     ```
 
     `ts-node`コマンドでTypeScriptが実行できるようになる
 
     ```
-    npx ts-node src/index.ts
+    yarn ts-node src/index.ts
     >> Hello World!
     ```
 
@@ -101,14 +102,14 @@ npm -v
     `tslint`をインストール
 
     ```
-    npm install --save_dev tslint
+    yarn add --dev tslint
     ```
 
     `tslint.json`を生成
 
     ```
-    npx tslint --init
+    yarn tslint --init
     ```
 
     `tslint.json`を適宜書き換える。  
-    (helloworld/tslint.jsonを参照)
+    [helloworld/tslint.json](./helloworld/tslint.json)を参照
