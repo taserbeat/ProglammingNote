@@ -1,21 +1,23 @@
-# TypeScriptの基礎
-TypeScriptの基礎や型システムについてのノート
+# TypeScript の基礎
+
+TypeScript の基礎や型システムについてのノート
 
 ## 環境構築
-`basic`フォルダにcdして、`npm ci`コマンドを実行する。  
+
+`basic`フォルダに cd して、`yarn`コマンドを実行する。
 
 ```bash
 cd ProglammingNote/typescript/basic
-npm ci
+yarn
 ```
 
-
 ## 実行方法
-`basic`フォルダにcdして、ts-nodeで対象のソースファイルを実行する。
+
+`basic`フォルダに cd して、ts-node で対象のソースファイルを実行する。
 
 例:
 
 ```bash
 cd ProglammingNote/typescript/basic
-npx ts-node functions/RestParameter.ts
+yarn ts-node advanced-type/RecordType.ts
 ```
